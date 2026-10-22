@@ -14,7 +14,7 @@ secret_word = random.choice(words)
 # Track guessed letters
 guessed_letters = []
 
-# 6 wrong gueeses allowed
+# 6 wrong guesses allowed
 attempts = 6
 
 # Underscore the secret word
@@ -27,6 +27,18 @@ print(" ".join(display_word))
 # Keep playing until word is guessed or attempts run out
 while attempts > 0 and "_" in display_word:
     guess = input("Guess a letter: ").lower()
+
+    # Only one letter guessed at a time
+    if len(guess) != 1 or not guess.isalpha():
+        print("Please enter one letter.")
+        continue
+    
+    # Check if letter was already guessed
+    if guess in guessed_letters:
+        print("You already guessed that letter!")
+        continue
+
+    guessed_letters.append(guess)
     
     if guess in secret_word:
         print("Good guess!")
